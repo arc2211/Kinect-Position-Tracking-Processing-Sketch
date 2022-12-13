@@ -24,6 +24,8 @@ final int NUM_CAMS = 2;
 Kinect2 kinect2a, kinect2b;
 
 //Distance parameters in mm
+//// CHANGE this to change how far way you can sense objects 
+//// need to make Min_Depth smaller to catch dog 
 int MAX_D = 3900; //This should be distance to floor
 int MIN_D = 500; //50cm
 
@@ -106,6 +108,8 @@ void setup() {
 
 void draw() {
   background(0);
+  //// to add the background depth image to the display
+  //// CHANGE: need to scale and rotate as below 
   image(kinect2a.getDepthImage(), 0, 0);
   // Clear OSC messages
   centers = new OscMessage("/centers");
@@ -173,6 +177,7 @@ void draw() {
       // Get the contour's bounding box
       Rectangle bb = contour.getBoundingBox();
       // Ignore little contours
+      //// CHANGE: make smaller to not ignore small dog
       float area = contour.area();
       if(area < 2000) continue;
       
